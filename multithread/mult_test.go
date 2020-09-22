@@ -14,24 +14,17 @@ func TestReadCsv(t *testing.T) {
 		name     string
 		filePath string
 		output   [][]string
-		wantErr  bool
-		errmsg   string
 	}{
 		{
 			name:     "reading file",
-			filePath: "/Users/vantihovich/work_lyft/tasks/multithread/test_2.csv",
+			filePath: "test_2.csv",
 			output:   [][]string{{"10", "11", "12"}, {"20", "21", "22"}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			res, err := readCsv(tt.filePath)
-			assert.Equal(t, tt.output, res, "sqrtStr returns unexpected value")
-			if tt.wantErr {
-				assert.Equal(t, tt.errmsg, err.Error(), "sqrtStr returns unexpected error")
-			} else {
-				assert.Equal(t, nil, err, "sqrtStr returns unexpected error")
-			}
+			res, _ := readCsv(tt.filePath)
+			assert.Equal(t, tt.output, res, "readCsv returns unexpected value")
 		})
 	}
 }

@@ -104,7 +104,7 @@ func main() {
 	ch5 := make(chan string)
 	p := "The_sums"
 
-	number, err := readCsv("/Users/vantihovich/work_lyft/tasks/multithread/test_100.csv")
+	number, err := readCsv("multithread/test_100.csv")
 	if err != nil {
 		fmt.Println("Error when reading the file", err)
 	} else {
