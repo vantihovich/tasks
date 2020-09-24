@@ -64,18 +64,18 @@ func TestParsingRow(t *testing.T) {
 			output: []int{10, 11, 12},
 		},
 		{
-			name:   "error parsing row",
-			input:  []string{"10", "11", "df"},
-			output: []int{10, 11, 0},
+			name:      "error parsing row",
+			input:     []string{"10", "11", "df"},
+			output:    []int{10, 11, 0},
 			outputErr: "strconv.Atoi: parsing \"df\": invalid syntax",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			chIn := make(chan []string)
-			chOut := make(chan []int)
-			chOut1 := make(chan []int)
-			chErr := make(chan error)
+			chIn    := make(chan []string)
+			chOut   := make(chan []int)
+			chOut1  := make(chan []int)
+			chErr   := make(chan error)
 
 			go parsingRow(chIn, chOut, chErr)
 			chIn <- tt.input
@@ -97,7 +97,7 @@ func TestParsingRow(t *testing.T) {
 					}
 				}
 			}()
-			assert.Equal(t,tt.output, <-chOut1,"parsingRow returns unexpected value")
+			assert.Equal(t, tt.output, <-chOut1, "parsingRow returns unexpected value")
 		})
 	}
 }
@@ -108,8 +108,8 @@ func TestSumming(t *testing.T) {
 		output int
 	}{
 		{
-			name: "correct summing",
-			input: []int{10, 11, 12},
+			name:   "correct summing",
+			input:  []int{10, 11, 12},
 			output: 33,
 		},
 	}
@@ -132,14 +132,14 @@ func TestConverting(t *testing.T) {
 		output string
 	}{
 		{
-			name: "correct converting",
-			input: 33,
+			name:   "correct converting",
+			input:  33,
 			output: "33",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			chIn2 := make(chan int)
+			chIn2  := make(chan int)
 			chOut2 := make(chan string)
 
 			go converting(chIn2, chOut2)
@@ -156,24 +156,24 @@ func TestWriting(t *testing.T) {
 		actual   string
 		input    string
 		input2   string
-		expected   string
+		expected string
 	}{
 		{
-			name:   "correct writing",
-			actual: "Test_writing_actual.csv",
-			input:  "33",
-			input2: "63",
+			name:     "correct writing",
+			actual:   "Test_writing_actual.csv",
+			input:    "33",
+			input2:   "63",
 			expected: "/Users/vantihovich/work_lyft/tasks/multithread/Test_write_expected.csv",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			chIn3 := make(chan string)
+			chIn3  := make(chan string)
 			chOut3 := make(chan string)
 
 			go writing(tt.actual, chIn3, chOut3)
-			chIn3<-tt.input
-			chIn3<-tt.input2
+			chIn3 <- tt.input
+			chIn3 <- tt.input2
 			close(chIn3)
 			<-chOut3
 
