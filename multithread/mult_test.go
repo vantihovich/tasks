@@ -163,7 +163,7 @@ func TestWriting(t *testing.T) {
 			actual:   "Test_writing_actual.csv",
 			input:    "33",
 			input2:   "63",
-			expected: "/Users/vantihovich/work_lyft/tasks/multithread/Test_write_expected.csv",
+			expected: "Test_write_expected.csv",
 		},
 	}
 	for _, tt := range tests {
