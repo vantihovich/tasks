@@ -136,5 +136,5 @@ func main() {
 	go writing(p, ch4, ch5)
 	<-ch5
 
-	fmt.Println("Done")
+	fmt.Println("Done, check file The_sums")
 }
